@@ -1,0 +1,6 @@
+E:\Atin_proj\Utility\Utility\bin\Debug\Utility.exe.config
+E:\Atin_proj\Utility\Utility\obj\Debug\Utility.csprojResolveAssemblyReference.cache
+E:\Atin_proj\Utility\Utility\bin\Debug\Utility.exe
+E:\Atin_proj\Utility\Utility\bin\Debug\Utility.pdb
+E:\Atin_proj\Utility\Utility\obj\Debug\Utility.exe
+E:\Atin_proj\Utility\Utility\obj\Debug\Utility.pdb
