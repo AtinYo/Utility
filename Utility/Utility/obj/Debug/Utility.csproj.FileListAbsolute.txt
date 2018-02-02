@@ -4,3 +4,6 @@ E:\Atin_proj\Utility\Utility\bin\Debug\Utility.exe
 E:\Atin_proj\Utility\Utility\bin\Debug\Utility.pdb
 E:\Atin_proj\Utility\Utility\obj\Debug\Utility.exe
 E:\Atin_proj\Utility\Utility\obj\Debug\Utility.pdb
+E:\GitHubProj\Utility\Utility\Utility\bin\Debug\Utility.exe.config
+E:\GitHubProj\Utility\Utility\Utility\obj\Debug\Utility.exe
+E:\GitHubProj\Utility\Utility\Utility\obj\Debug\Utility.pdb

@@ -8,6 +8,7 @@ namespace Utility.Tool
 {
     public static class Tools
     {
+        #region deep copy 深复制
         private static Dictionary<object, object> cacheDic = new Dictionary<object, object>();//只有引用类型才需要缓存，为了解决 循环引用类 的深复制问题
 
         public static void ClearCopyCacheDic()
@@ -22,7 +23,7 @@ namespace Utility.Tool
             }
         }
 
-        public static T GetCopied<T>(this T src)where T:class,new()
+        public static T GetCopied<T>(this T src) where T : class, new()
         {
             object dst = null;
             try
@@ -110,6 +111,42 @@ namespace Utility.Tool
             }
             return dst as T;
         }
+        #endregion
+
+        #region Swap Func
+        public static void Swap<T>(ref T x, ref T y)
+        {
+            try
+            {
+                T temp = x;
+                x = y;
+                y = temp;
+            }
+            catch (Exception e)
+            {
+                //防止只有get的属性器调用交换
+                //logError()
+            }
+        }
+        public static void Swap(ref short x, ref short y)
+        {
+            y = (short)(x ^ y);
+            x = (short)(x ^ y);
+            y = (short)(x ^ y);
+        }
+        public static void Swap(ref int x, ref int y)
+        {
+            y = x ^ y;
+            x = x ^ y;
+            y = x ^ y;
+        }
+        public static void Swap(ref long x, ref long y)
+        {
+            y = x ^ y;
+            x = x ^ y;
+            y = x ^ y;
+        }
+        #endregion
     }
-    
+
 }
