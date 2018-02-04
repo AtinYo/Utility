@@ -23,11 +23,9 @@ namespace Utility.Algorithm
     public static class SortingtAlgorithm
     {
         #region ToolsFunc
-        public static void Swap<T>(T x, T y) where T : IIndexers<T>
+        public static void Swap<T>(ref T x,ref T y) where T : IIndexers<T>
         {
-            T temp = x;
-            x = y;
-            y = temp;
+            Tools.Swap(ref x, ref y);
         }
         #endregion
 
@@ -78,11 +76,14 @@ namespace Utility.Algorithm
 
                     #region 基于交换的插入操作.因为没有新开辟集合,因此要在原集合进行插入就要基于交换.
                     int j = sortedCount;
+                    T temp = src[sortedCount];
                     while (j > InsertIndex)
                     {
-                        Swap(src[j - 1], src[j]);
+                        //Swap(src[j - 1], src[j]);
+                        src[j] = src[j - 1];
                         j--;
                     }
+                    src[InsertIndex] = temp;
                     #endregion
                     sortedCount++;
                 }
@@ -133,11 +134,14 @@ namespace Utility.Algorithm
 
                     #region 基于交换的插入操作.因为没有新开辟集合,因此要在原集合进行插入就要基于交换.
                     int j = sortedCount;
+                    T temp = src[sortedCount];
                     while (j > InsertIndex)
                     {
-                        Tools.Swap(ref src[j - 1], ref src[j]);
+                        //Tools.Swap(ref src[j - 1], ref src[j]);
+                        src[j] = src[j - 1];
                         j--;
                     }
+                    src[InsertIndex] = temp;
                     #endregion
                     sortedCount++;
                 }
