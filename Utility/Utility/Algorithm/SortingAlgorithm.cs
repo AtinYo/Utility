@@ -9,7 +9,7 @@ namespace Utility.Algorithm
     /// <summary>
     /// 实现了IList<T>接口且T实现了IComparable的集合类 的排序算法
     /// </summary>
-    public static class SortingtAlgorithm
+    public static class SortingAlgorithm
     {
         /// <summary>
         /// 插入排序算法.排序结果是升序,如果要得到降序结果,修改CompareTo返回值即可.基于元素的交换,不建议用在存储结构是连续分布的且数量交大的集合.如数组
