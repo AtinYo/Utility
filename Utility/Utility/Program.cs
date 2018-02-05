@@ -18,43 +18,30 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.MergeSorting(a);
+            SortingAlgorithm.BubbleSorting(a);
             isLegal = false;
-            isLegal = CheckIsLegal(a);
+            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
 
             a.Clear();
             for (int i = 0; i < 100; i++)
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.MergeSorting(a);
+            SortingAlgorithm.BubbleSorting(a);
             isLegal = false;
-            isLegal = CheckIsLegal(a);
+            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
 
             a.Clear();
             for (int i = 0; i < 100; i++)
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.MergeSorting(a);
+            SortingAlgorithm.BubbleSorting(a);
             isLegal = false;
-            isLegal = CheckIsLegal(a);
-            int a1;
+            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
+
         }
 
-        public static bool CheckIsLegal<T>(IList<T> a)where T: IComparable
-        {
-            T lastNum = default(T);
-
-            foreach(var num in a)
-            {
-                if (lastNum.CompareTo(num) > 0)
-                {
-                    return false;
-                }
-                lastNum = num;
-            }
-            return true;
-        }
+        
     }
 }

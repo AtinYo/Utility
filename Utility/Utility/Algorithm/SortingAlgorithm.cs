@@ -146,5 +146,63 @@ namespace Utility.Algorithm
             }
         }
         #endregion
+
+        #region BubbleSorting
+        /// <summary>
+        /// 冒泡排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的简单但低效的排序算法]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        public static void BubbleSorting<T>(IList<T> src) where T : IComparable
+        {
+            if(src != null && src.Count > 0)
+            {
+                int result = 0;
+                T temp = default(T);
+                for (int i = 0; i < src.Count; i++)
+                {
+                    for(int j = src.Count - 1; j > 0; j--)
+                    {
+                        result = src[j].CompareTo(src[j - 1]);
+                        if (result <= 0)
+                        {
+                            temp = src[j];
+                            src[j] = src[j - 1];
+                            src[j - 1] = temp;
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region QuickSorting
+        /// <summary>
+        /// 快速排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的排序]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        public static void QuickSorting<T>(IList<T> src) where T : IComparable
+        {
+
+        }
+        #endregion
+
+        #region tools
+        public static bool CheckSortedListIsLegal<T>(IList<T> a) where T : IComparable
+        {
+            T lastNum = default(T);
+
+            foreach (var num in a)
+            {
+                if (lastNum.CompareTo(num) > 0)
+                {
+                    return false;
+                }
+                lastNum = num;
+            }
+            return true;
+        }
+        #endregion
     }
 }
