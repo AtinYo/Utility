@@ -11,47 +11,44 @@ namespace Utility
         static void Main(string[] args)
         {
             bool isLegal = false;
-            int[] a = new int[100];
+            List<int> a = new List<int>();
+            IList<int> ii = a;
             Random random = new Random();
-            for (int i = 0; i < a.Length; i++)
+            for (int i = 0; i < 100; i++)
             {
-                a[i] = random.Next(1000);
+                a.Add(random.Next(1000));
             }
-            SortingtAlgorithm.InsertSorting(ref a);
+            SortingtAlgorithm.InsertSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
-            for (int i = 0; i < a.Length; i++)
+            a.Clear();
+            for (int i = 0; i < 100; i++)
             {
-                a[i] = random.Next(1000);
+                a.Add(random.Next(1000));
             }
-            SortingtAlgorithm.InsertSorting(ref a);
+            SortingtAlgorithm.InsertSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
-            for (int i = 0; i < a.Length; i++)
+            a.Clear();
+            for (int i = 0; i < 100; i++)
             {
-                a[i] = random.Next(1000);
+                a.Add(random.Next(1000));
             }
-            SortingtAlgorithm.InsertSorting(ref a);
+            SortingtAlgorithm.InsertSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
-            for (int i = 0; i < a.Length; i++)
-            {
-                a[i] = random.Next(1000);
-            }
-            SortingtAlgorithm.InsertSorting(ref a);
-            isLegal = false;
-            isLegal = CheckIsLegal(a);
         }
 
-        public static bool CheckIsLegal(int[] a)
+        public static bool CheckIsLegal<T>(IList<T> a)where T: IComparable
         {
-            int lastNum = -1;
+            T lastNum = default(T);
+
             foreach(var num in a)
             {
-                if (lastNum > num)
+                if (lastNum.CompareTo(num) > 0)
                 {
                     return false;
                 }
