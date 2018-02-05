@@ -39,7 +39,7 @@ namespace Utility
             SortingAlgorithm.MergeSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
-
+            int a1;
         }
 
         public static bool CheckIsLegal<T>(IList<T> a)where T: IComparable
