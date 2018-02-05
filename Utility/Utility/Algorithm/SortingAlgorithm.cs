@@ -11,8 +11,9 @@ namespace Utility.Algorithm
     /// </summary>
     public static class SortingAlgorithm
     {
+        #region InsertSorting
         /// <summary>
-        /// 插入排序算法.排序结果是升序,如果要得到降序结果,修改CompareTo返回值即可.基于元素的交换,不建议用在存储结构是连续分布的且数量交大的集合.如数组
+        /// 插入排序算法.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于元素的交换,不建议用在存储结构是连续分布的且数量交大的集合.如数组]
         /// </summary>
         /// <typeparam name="T">集合数据的类型</typeparam>
         /// <param name="src">需要排序的集合</param>
@@ -72,7 +73,78 @@ namespace Utility.Algorithm
 
             }
         }
+        #endregion
+
+        #region MergeSorting
+        /// <summary>
+        /// 合并排序算法.排序结果默认是升序.如果要得到降序结果,修改CompareTo返回值即可.[由于使用了函数递归,不建议用在n规模较大的集合,避免StackOverflow]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        public static void MergeSorting<T>(IList<T> src) where T : IComparable
+        {
+            if(src != null && src.Count > 0)
+            {
+                int left = 0;
+                int right = src.Count - 1;
+                MergeSorting(src, left, right);
+            }
+        }
+
+
+        public static void MergeSorting<T>(IList<T> src, int left, int right) where T : IComparable
+        {
+            //left和right都是可以到达的index
+            if(src != null && left >= 0 && right < src.Count && left < right)
+            {
+                int index = (left + right) / 2;
+                MergeSorting(src, left, index);
+                MergeSorting(src, index + 1, right);
+                Merge(src, left, right, index);
+            }
+        }
 
         
+
+        private static void Merge<T>(IList<T> src, int left, int right, int mid) where T : IComparable
+        {
+            T[] temp = new T[right - left + 1];
+            int index = 0;
+            int index_1 = left;
+            int index_2 = mid + 1;
+            int result = 0;
+            while (index < temp.Length)
+            {
+                if (index_1 <= mid && index_2 <= right)
+                {
+                    result = src[index_1].CompareTo(src[index_2]);
+                    if (result <= 0)
+                    {
+                        temp[index++] = src[index_1++];
+                    }
+                    else
+                    {
+                        temp[index++] = src[index_2++];
+                    }
+                }
+                else
+                {
+                    //说明已经有一个已经为空了
+                    while (index_1 <= mid)
+                    {
+                        temp[index++] = src[index_1++];
+                    }
+                    while (index_2 <= right)
+                    {
+                        temp[index++] = src[index_2++];
+                    }
+                }
+            }
+            for(int i=0; i < temp.Length; i++)
+            {
+                src[left + i] = temp[i];
+            }
+        }
+        #endregion
     }
 }

@@ -18,7 +18,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.InsertSorting(a);
+            SortingAlgorithm.MergeSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
@@ -27,7 +27,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.InsertSorting(a);
+            SortingAlgorithm.MergeSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
@@ -36,7 +36,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.InsertSorting(a);
+            SortingAlgorithm.MergeSorting(a);
             isLegal = false;
             isLegal = CheckIsLegal(a);
 
