@@ -18,7 +18,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortingAlgorithm.HeapSorting(a);
             isLegal = false;
             isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
 
@@ -27,7 +27,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortingAlgorithm.HeapSorting(a);
             isLegal = false;
             isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
 
@@ -36,7 +36,7 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortingAlgorithm.HeapSorting(a);
             isLegal = false;
             isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
 

@@ -217,10 +217,85 @@ namespace Utility.Algorithm
         #endregion
 
         #region HeapSorting [最坏:O(nlgn),平均:--]
+        /// <summary>
+        /// 堆排序.先构建堆,然后"输出"堆顶元素,再通过维护"输出"堆顶后的堆来实现排序.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
         public static void HeapSorting<T>(IList<T> src) where T : IComparable
         {
-            //待实现
+            if(src != null && src.Count > 0)
+            {
+                //先构建堆
+                BuildMaxHeap(src);
+
+                //"输出"堆顶元素.就是将堆顶元素放到list末端,且让堆大小减少1
+                int heap_size = src.Count;
+                while (heap_size > 0)
+                {
+                    Swap(src, 0, heap_size - 1);
+                    heap_size--;
+                    MaxHeapify(src, 0, heap_size);
+                }
+            }
         }
+
+        /// <summary>
+        /// 构建最大堆.自底向上构建
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        private static void BuildMaxHeap<T>(IList<T> src) where T : IComparable
+        {
+            int startIndex = (src.Count - 1) / 2;//因为 index 从 (src.Count - 1) / 2 + 1 开始的节点都是叶子节点,可以视为元素为1的堆,不需要MaxHeapify化.
+            while(startIndex >= 0)
+            {
+                MaxHeapify(src, startIndex, src.Count);
+                startIndex--;
+            }
+        }
+
+        /// <summary>
+        /// 堆最大化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        /// <param name="index"></param>
+        private static void MaxHeapify<T>(IList<T> src, int index, int heap_size) where T : IComparable
+        {
+            if(index >= 0 && index < heap_size)
+            {
+                int LargestIndex = index;
+                int RightChildIndex = 2 * (index + 1);
+                int LeftChildIndex = RightChildIndex - 1;
+                if (LeftChildIndex < heap_size && src[index].CompareTo(src[LeftChildIndex]) < 0)
+                {
+                    LargestIndex = LeftChildIndex;
+                }
+                if (RightChildIndex < heap_size && src[LargestIndex].CompareTo(src[RightChildIndex]) < 0)
+                {
+                    LargestIndex = RightChildIndex;
+                }
+                if (LargestIndex != index)
+                {
+                    Swap(src, LargestIndex, index);
+                    MaxHeapify(src, LargestIndex, heap_size);
+                }
+            }
+        }
+        //下面三个是求堆中 父节点index,左子节点index,右子节点index
+        //private static int ParentIndex(int i)
+        //{
+        //    return (i - 1) / 2;
+        //}
+        //private static int LeftChildIndex(int i)
+        //{
+        //    return 2 * (i + 1) - 1;
+        //}
+        //private static int RightChildIndex(int i)
+        //{
+        //    return 2 * (i + 1);
+        //}
         #endregion
 
         #region tools
