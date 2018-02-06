@@ -158,7 +158,6 @@ namespace Utility.Algorithm
             if(src != null && src.Count > 0)
             {
                 int result = 0;
-                T temp = default(T);
                 for (int i = 0; i < src.Count; i++)
                 {
                     for(int j = src.Count - 1; j > 0; j--)
@@ -166,9 +165,7 @@ namespace Utility.Algorithm
                         result = src[j].CompareTo(src[j - 1]);
                         if (result <= 0)
                         {
-                            temp = src[j];
-                            src[j] = src[j - 1];
-                            src[j - 1] = temp;
+                            Swap(src, j - 1, j);
                         }
                     }
                 }
@@ -184,16 +181,47 @@ namespace Utility.Algorithm
         /// <param name="src"></param>
         public static void QuickSorting<T>(IList<T> src) where T : IComparable
         {
+            if(src != null && src.Count > 0)
+            {
+                QuickSorting(src, 0, src.Count - 1);
+            }
+        }
 
+        public static void QuickSorting<T>(IList<T> src, int left, int right) where T : IComparable
+        {
+            if(src != null && src.Count > 0 && left >= 0 && right < src.Count && right > left)
+            {
+                T guard = src[left];//取list的第一个元素作为哨兵,使得排序后,小于它的在它左边,大于它的在它右边.然后再分别对左右两部分快排
+                int i = left + 1;
+                int j = right;
+                while (true)
+                {
+                    while (i <= right && src[i].CompareTo(guard) <= 0)
+                    {
+                        i++;
+                    }
+                    while (src[j].CompareTo(guard) > 0)//由于是先执行i的处理,到这里的时候,只需要拿第一个比哨兵小的即可,不需要判断j>=0
+                    {
+                        j--;
+                    }
+                    if (i >= j)
+                        break;
+
+                    Swap(src, i, j);
+                }
+                Swap(src, left, j);//别忘了处理哨兵
+                QuickSorting(src, left, j - 1);
+                QuickSorting(src, j + 1, right);
+            }
         }
         #endregion
 
         #region tools
-        public static bool CheckSortedListIsLegal<T>(IList<T> a) where T : IComparable
+        public static bool CheckSortedListIsLegal<T>(IList<T> list) where T : IComparable
         {
             T lastNum = default(T);
 
-            foreach (var num in a)
+            foreach (var num in list)
             {
                 if (lastNum.CompareTo(num) > 0)
                 {
@@ -202,6 +230,13 @@ namespace Utility.Algorithm
                 lastNum = num;
             }
             return true;
+        }
+
+        private static void Swap<T>(IList<T> list, int index_x, int index_y) where T : IComparable
+        {
+            T temp = list[index_x];
+            list[index_x] = list[index_y];
+            list[index_y] = temp;
         }
         #endregion
     }
