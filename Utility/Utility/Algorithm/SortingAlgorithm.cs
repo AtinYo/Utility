@@ -11,7 +11,7 @@ namespace Utility.Algorithm
     /// </summary>
     public static class SortingAlgorithm
     {
-        #region InsertSorting
+        #region InsertSorting [最坏:O(n^2),平均:O(n^2)]
         /// <summary>
         /// 插入排序算法.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于元素的交换,不建议用在存储结构是连续分布的且数量交大的集合.如数组]
         /// </summary>
@@ -75,7 +75,7 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region MergeSorting
+        #region MergeSorting [最坏:O(nlgn),平均:O(nlgn)]
         /// <summary>
         /// 合并排序算法.排序结果默认是升序.如果要得到降序结果,修改CompareTo返回值即可.[由于使用了函数递归,不建议用在n规模较大的集合,避免StackOverflow]
         /// </summary>
@@ -147,7 +147,7 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region BubbleSorting
+        #region BubbleSorting [最坏:O(n^2),平均:O(n^2)]
         /// <summary>
         /// 冒泡排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的简单但低效的排序算法]
         /// </summary>
@@ -173,7 +173,7 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region QuickSorting
+        #region QuickSorting [最坏:O(n^2),平均:O(nlgn)期望]
         /// <summary>
         /// 快速排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的排序]
         /// </summary>
@@ -213,6 +213,13 @@ namespace Utility.Algorithm
                 QuickSorting(src, left, j - 1);
                 QuickSorting(src, j + 1, right);
             }
+        }
+        #endregion
+
+        #region HeapSorting [最坏:O(nlgn),平均:--]
+        public static void HeapSorting<T>(IList<T> src) where T : IComparable
+        {
+            //待实现
         }
         #endregion
 
