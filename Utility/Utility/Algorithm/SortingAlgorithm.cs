@@ -218,11 +218,11 @@ namespace Utility.Algorithm
 
         #region HeapSorting [最坏:O(nlgn),平均:--]
         /// <summary>
-        /// 堆排序.先构建堆,然后"输出"堆顶元素,再通过维护"输出"堆顶后的堆来实现排序.
+        /// 堆排序.先构建堆,然后"输出"堆顶元素,再通过维护"输出"堆顶后的堆来实现排序.[最大堆法.参考算法导论]
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void HeapSorting<T>(IList<T> src) where T : IComparable
+        public static void MaxHeapSorting<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
@@ -283,6 +283,99 @@ namespace Utility.Algorithm
                 }
             }
         }
+
+        /// <summary>
+        /// 堆排序.先构建堆,然后"输出"堆顶元素,再通过维护"输出"堆顶后的堆来实现排序.[最小堆法.]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        public static void MinHeapSorting<T>(IList<T> src) where T : IComparable
+        {
+            if(src != null && src.Count > 0)
+            {
+                //先构建堆
+                BuildMinHeap(src);
+
+                //"输出"堆顶元素.就是将堆顶元素放到list末端,且让堆大小减少1
+                int heap_size = src.Count;
+                while (heap_size > 0)
+                {
+                    Swap(src, 0, heap_size - 1);
+                    heap_size--;
+                    MinHeapify_Downward(src, 0, heap_size);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 堆最小化.较小元素上浮.堆底插入元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        /// <param name="index"></param>
+        /// <param name="heap_size"></param>
+        private static void MinHeapify_Upward<T>(IList<T> src, int index, int heap_size) where T : IComparable
+        {
+            if (index >= 0 && index < heap_size)
+            {
+                int parentIndex = (index - 1) / 2;
+                if (parentIndex >= 0)
+                {
+                    if (src[index].CompareTo(src[parentIndex]) < 0)//最小元素"上浮"
+                    {
+                        Swap(src, index, parentIndex);
+                        MinHeapify_Upward(src, parentIndex, heap_size);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 堆最小化.较大元素下沉.堆顶插入元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        /// <param name="index"></param>
+        /// <param name="heap_size"></param>
+        private static void MinHeapify_Downward<T>(IList<T> src, int index, int heap_size) where T : IComparable
+        {
+            if (index >= 0 && index < heap_size)
+            {
+                int SmallestIndex = index;
+                int RightChildIndex = 2 * (index + 1);
+                int LeftChildIndex = RightChildIndex - 1;
+                if (LeftChildIndex < heap_size && src[LeftChildIndex].CompareTo(src[index]) < 0)
+                {
+                    SmallestIndex = LeftChildIndex;
+                }
+                if (RightChildIndex < heap_size && src[RightChildIndex].CompareTo(src[SmallestIndex]) < 0)
+                {
+                    SmallestIndex = RightChildIndex;
+                }
+                if (SmallestIndex != index)
+                {
+                    Swap(src, SmallestIndex, index);
+                    MinHeapify_Downward(src, SmallestIndex, heap_size);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 构建最小堆.通过不断插入元素构建
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        private static void BuildMinHeap<T>(IList<T> src) where T : IComparable
+        {
+            //算法思想是,一开始是一个0元素的堆,不断插入元素(在堆尾),插入后进行最小堆化.
+            int heap_size = 0;
+            while (heap_size < src.Count)
+            {
+                heap_size++;//相当于插入一个元素到堆中
+                MinHeapify_Upward(src, heap_size - 1, heap_size);
+            }
+        }
+
         //下面三个是求堆中 父节点index,左子节点index,右子节点index
         //private static int ParentIndex(int i)
         //{
@@ -299,17 +392,25 @@ namespace Utility.Algorithm
         #endregion
 
         #region tools
-        public static bool CheckSortedListIsLegal<T>(IList<T> list) where T : IComparable
+        /// <summary>
+        /// 检查list 是否 是升序(或降序)序列
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="isAscend"></param>
+        /// <returns></returns>
+        public static bool CheckSortedListIsLegal<T>(IList<T> list, bool isAscend = true) where T : IComparable
         {
-            T lastNum = default(T);
-
-            foreach (var num in list)
+            T lastNum = list[0];
+            bool compareResult = false;
+            for(int i = 1; i < list.Count; i++)
             {
-                if (lastNum.CompareTo(num) > 0)
+                compareResult = isAscend ? lastNum.CompareTo(list[i]) > 0 : lastNum.CompareTo(list[i]) < 0;
+                if (compareResult)
                 {
                     return false;
                 }
-                lastNum = num;
+                lastNum = list[i];
             }
             return true;
         }
