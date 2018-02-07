@@ -9,15 +9,15 @@ namespace Utility.Algorithm
     /// <summary>
     /// 实现了IList<T>接口且T实现了IComparable的集合类 的排序算法
     /// </summary>
-    public static class SortingAlgorithm
+    public static class SortAlgorithm
     {
-        #region InsertSorting [最坏:O(n^2),平均:O(n^2)]
+        #region InsertSort [最坏:O(n^2),平均:O(n^2)]
         /// <summary>
         /// 插入排序算法.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于元素的交换,不建议用在存储结构是连续分布的且数量交大的集合.如数组]
         /// </summary>
         /// <typeparam name="T">集合数据的类型</typeparam>
         /// <param name="src">需要排序的集合</param>
-        public static void InsertSorting<T>(IList<T> src)where T : IComparable
+        public static void InsertSort<T>(IList<T> src)where T : IComparable
         {
             if (src != null && src.Count > 1)
             {
@@ -75,37 +75,34 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region MergeSorting [最坏:O(nlgn),平均:O(nlgn)]
+        #region MergeSort [最坏:O(nlgn),平均:O(nlgn)]
         /// <summary>
         /// 合并排序算法.排序结果默认是升序.如果要得到降序结果,修改CompareTo返回值即可.[由于使用了函数递归,不建议用在n规模较大的集合,避免StackOverflow]
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void MergeSorting<T>(IList<T> src) where T : IComparable
+        public static void MergeSort<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
                 int left = 0;
                 int right = src.Count - 1;
-                MergeSorting(src, left, right);
+                MergeSort(src, left, right);
             }
         }
-
-
-        public static void MergeSorting<T>(IList<T> src, int left, int right) where T : IComparable
+        
+        public static void MergeSort<T>(IList<T> src, int left, int right) where T : IComparable
         {
             //left和right都是可以到达的index
             if(src != null && left >= 0 && right < src.Count && left < right)
             {
                 int index = (left + right) / 2;
-                MergeSorting(src, left, index);
-                MergeSorting(src, index + 1, right);
+                MergeSort(src, left, index);
+                MergeSort(src, index + 1, right);
                 Merge(src, left, right, index);
             }
         }
-
         
-
         private static void Merge<T>(IList<T> src, int left, int right, int mid) where T : IComparable
         {
             T[] temp = new T[right - left + 1];
@@ -147,13 +144,13 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region BubbleSorting [最坏:O(n^2),平均:O(n^2)]
+        #region BubbleSort [最坏:O(n^2),平均:O(n^2)]
         /// <summary>
         /// 冒泡排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的简单但低效的排序算法]
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void BubbleSorting<T>(IList<T> src) where T : IComparable
+        public static void BubbleSort<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
@@ -173,21 +170,21 @@ namespace Utility.Algorithm
         }
         #endregion
 
-        #region QuickSorting [最坏:O(n^2),平均:O(nlgn)期望]
+        #region QuickSort [最坏:O(n^2),平均:O(nlgn)期望]
         /// <summary>
         /// 快速排序.排序结果默认是升序,如果要得到降序结果,修改CompareTo返回值即可.[基于交换的排序]
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void QuickSorting<T>(IList<T> src) where T : IComparable
+        public static void QuickSort<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
-                QuickSorting(src, 0, src.Count - 1);
+                QuickSort(src, 0, src.Count - 1);
             }
         }
 
-        public static void QuickSorting<T>(IList<T> src, int left, int right) where T : IComparable
+        public static void QuickSort<T>(IList<T> src, int left, int right) where T : IComparable
         {
             if(src != null && src.Count > 0 && left >= 0 && right < src.Count && right > left)
             {
@@ -214,19 +211,19 @@ namespace Utility.Algorithm
                     Swap(src, i, j);
                 }
                 Swap(src, left, j);//别忘了处理哨兵
-                QuickSorting(src, left, j - 1);
-                QuickSorting(src, j + 1, right);
+                QuickSort(src, left, j - 1);
+                QuickSort(src, j + 1, right);
             }
         }
         #endregion
 
-        #region HeapSorting [最坏:O(nlgn),平均:--]
+        #region HeapSort [最坏:O(nlgn),平均:--]
         /// <summary>
         /// 堆排序.先构建堆,然后"输出"堆顶元素,再通过维护"输出"堆顶后的堆来实现排序.[最大堆法.参考算法导论]
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void MaxHeapSorting<T>(IList<T> src) where T : IComparable
+        public static void MaxHeapSort<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
@@ -293,7 +290,7 @@ namespace Utility.Algorithm
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="src"></param>
-        public static void MinHeapSorting<T>(IList<T> src) where T : IComparable
+        public static void MinHeapSort<T>(IList<T> src) where T : IComparable
         {
             if(src != null && src.Count > 0)
             {
@@ -393,6 +390,33 @@ namespace Utility.Algorithm
         //{
         //    return 2 * (i + 1);
         //}
+        #endregion
+
+        #region CountSort [O(k+n)]
+        /// <summary>
+        /// 计数排序.时间复杂度为O(k+n),其中k为要排序序列中最大元素的值.当k=O(n)时,可以考虑采用计数排序--算法导论
+        /// </summary>
+        /// <typeparam name="T">需要实现相等接口</typeparam>
+        /// <param name="src"></param>
+        public static void CountSort<T>(IList<T> src) where T : IEquatable<T>
+        {
+            if (src != null && src.Count > 0)
+            {
+                //泛型计数排序,到时候再实现,需要用到字典作为容器,这样即便k很大,也可以利用字典作为存储数据来处理,第二个,只有字典才能让排序序列中元素作为索引(作为key)
+            }
+        }
+        #endregion
+
+        #region RadixSort
+        /// <summary>
+        /// 基数排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        public static void RadixSort<T>(IList<T> src)
+        {
+
+        }
         #endregion
 
         #region tools

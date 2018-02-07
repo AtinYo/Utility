@@ -18,27 +18,27 @@ namespace Utility
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortAlgorithm.QuickSort(a);
             isLegal = false;
-            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
+            isLegal = SortAlgorithm.CheckSortedListIsLegal(a);
 
             a.Clear();
             for (int i = 0; i < 100; i++)
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortAlgorithm.QuickSort(a);
             isLegal = false;
-            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
+            isLegal = SortAlgorithm.CheckSortedListIsLegal(a);
 
             a.Clear();
             for (int i = 0; i < 100; i++)
             {
                 a.Add(random.Next(1000));
             }
-            SortingAlgorithm.QuickSorting(a);
+            SortAlgorithm.QuickSort(a);
             isLegal = false;
-            isLegal = SortingAlgorithm.CheckSortedListIsLegal(a);
+            isLegal = SortAlgorithm.CheckSortedListIsLegal(a);
 
         }
 
