@@ -149,4 +149,60 @@ namespace Utility.Tool
         #endregion
     }
 
+    public class RandomNumProducer
+    {
+        #region single
+        private static RandomNumProducer m_Instance;
+        public static RandomNumProducer Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                {
+                    m_Instance = new RandomNumProducer();
+                }
+                return m_Instance;
+            }
+        }
+        #endregion
+
+        private Random m_random;
+
+        public RandomNumProducer(Random _random)
+        {
+            m_random = _random;
+        }
+
+        public RandomNumProducer()
+        {
+            m_random = new Random();
+        }
+
+        public RandomNumProducer(int seed)
+        {
+            m_random = new Random(seed);
+        }
+
+        /// <summary>
+        /// 产生双精度浮点随机数[用的是c#函数]
+        /// </summary>
+        /// <param name="min">下界.包含</param>
+        /// <param name="max">上界.包含</param>
+        /// <returns></returns>
+        public double Range(double min, double max)
+        {
+            return (max - min) * m_random.NextDouble();
+        }
+
+        /// <summary>
+        /// 产生整型随机数[用的是c#函数]
+        /// </summary>
+        /// <param name="min">下界.包含</param>
+        /// <param name="max">上界.包含</param>
+        /// <returns></returns>
+        public int Range(int min, int max)
+        {
+            return m_random.Next(min, max + 1);
+        }
+    }
 }

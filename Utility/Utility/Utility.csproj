@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithm\SortingAlgorithm.cs" />
+    <Compile Include="Algorithm\SortAlgorithm.cs" />
     <Compile Include="MathFunc\Mathf.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
