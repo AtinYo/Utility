@@ -191,7 +191,11 @@ namespace Utility.Algorithm
         {
             if(src != null && src.Count > 0 && left >= 0 && right < src.Count && right > left)
             {
-                T guard = src[left];//取list的第一个元素作为哨兵,使得排序后,小于它的在它左边,大于它的在它右边.然后再分别对左右两部分快排
+                #region 随机选取哨兵
+                int guardIndex = RandomNumProducer.Instance.Range(left + 1, right);
+                Swap(src, guardIndex, left);
+                #endregion
+                T guard = src[left];//取该元素作为哨兵,使得排序后,小于它的在它左边,大于它的在它右边.然后再分别对左右两部分快排
                 int i = left + 1;
                 int j = right;
                 while (true)
