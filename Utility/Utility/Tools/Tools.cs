@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility.Interfaces;
 
 namespace Utility.Tool
 {
@@ -149,23 +151,8 @@ namespace Utility.Tool
         #endregion
     }
 
-    public class RandomNumProducer
+    public class RandomNumProducer : TSingleton<RandomNumProducer>
     {
-        #region single
-        private static RandomNumProducer m_Instance;
-        public static RandomNumProducer Instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                {
-                    m_Instance = new RandomNumProducer();
-                }
-                return m_Instance;
-            }
-        }
-        #endregion
-
         private Random m_random;
 
         public RandomNumProducer(Random _random)
@@ -203,6 +190,55 @@ namespace Utility.Tool
         public int Range(int min, int max)
         {
             return m_random.Next(min, max + 1);
+        }
+    }
+
+    public class TimeProfiler : TSingleton<TimeProfiler>
+    {
+        public enum TimeType
+        {
+            millionsecond,
+            second,
+            minute,
+            hour,
+        }
+
+        private Stopwatch stopWatch;
+        public TimeProfiler()
+        {
+            stopWatch = new Stopwatch();
+        }
+
+        public void LogStart()
+        {
+            stopWatch.Start();
+        }
+
+        public void LogEnd()
+        {
+            stopWatch.Stop();
+        }
+
+        public double LogPrint(TimeType type = TimeType.second)
+        {
+            switch (type)
+            {
+                case TimeType.millionsecond:
+                    return stopWatch.Elapsed.TotalMilliseconds;
+                case TimeType.second:
+                    return stopWatch.Elapsed.TotalSeconds;
+                case TimeType.minute:
+                    return stopWatch.Elapsed.TotalMinutes;
+                case TimeType.hour:
+                    return stopWatch.Elapsed.TotalHours;
+            }
+            return 0;
+        }
+
+        public double LogEndAndPrint(TimeType type = TimeType.second)
+        {
+            LogEnd();
+            return LogPrint(type);
         }
     }
 }
